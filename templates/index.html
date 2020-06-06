@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+<h1>Deep Learning Based Attendance System</h1>
+<ul>
+  <li><a href="{{ url_for('signinAdmin') }}">Admin Sign-In<i class="fas fa-chevron-right"></i></a></li>
+  <li><a href="{{ url_for('signin') }}">Teacher Sign-In<i class="fas fa-chevron-right"></i></a></li>
+  <li><a href="{{ url_for('signinStudent') }}">Student Sign-In<i class="fas fa-chevron-right"></i></a></li>
+</ul>
+{% endblock %}

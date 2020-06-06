@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/success.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}" rel="stylesheet" type="text/css">
+    <script>
+      function loadRegister(){
+        fetch('/register').then(()=>alert("Already redirected."));
+      }
+    </script>
+    
+{% endblock %}
+
+{% block content %}
+<div align="center">
+  <div class="success-wrapper">
+    <h1>Welcome {{formData.name}}!</h1>
+    <h3>Select any one of the option below:</h3>
+  </div>
+
+  <div class="formwrapper">
+    <h2 class="title">Face Recognition</h2>
+    <form method="POST" action="/rec">
+        {{ urlForm.csrf_token }}
+        <div class="form-field">{{ urlForm.url.label }} {{ urlForm.url() }}
+          {% if urlForm.url.errors %}
+            <ul class="errors">
+              {% for error in urlForm.url.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+        <div class="form-field">{{ urlForm.lecture.label }} {{ urlForm.lecture() }}
+          {% if urlForm.lecture.errors %}
+            <ul class="errors">
+              {% for error in urlForm.lecture.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+        {{ urlForm.submit }}
+    </form>
+  </div>
+  <a href="/dashboard"><button>Check Attendance</button></a>
+  <a href="/logout"><button class="logout-btn" style="height: 5%;">Logout</button></a>
+<div>
+{% endblock %}

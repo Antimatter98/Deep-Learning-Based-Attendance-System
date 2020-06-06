@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+  <head>
+    {% include 'meta.html' %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css">
+    <script src="https://kit.fontawesome.com/e3deaeba31.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,500" rel="stylesheet">
+  </head>
+
+    <body class="{{template}}">
+        <nav>
+            <span style="margin-left: 10px;">Signed in as: {{ currentUser['name'] }}</span>
+            <a href="/logout"><button class="logout-btn">Logout</button></a>
+        </nav>
+        <div class="container">
+            <div style="display:flex; flex-direction: column;">
+                {% if currentUser['role'] == 'admin' %}
+                    <div align="center">
+                        <p>Welcome {{ currentUser['name'] }}</p>
+                        <a href="/signup"><button>Sign up Teacher</button></a>
+                        <a href="/register"><button>Sign up Student</button></a>
+                    </div>
+                {% endif %}
+                {% if currentUser['role'] == 'teacher' %}
+                    <h1>Total Lectures Conducted: {{lectures_data|length}} </h1>
+                    <table>
+                        <thead>
+                            <tr>
+                                {% for col in col_names %}
+                                    <th>
+                                        {{ col }}
+                                    </th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                            <tbody>
+                            {% for lec in lectures_data %}
+                                <tr>
+                                    <td>{{ lec['id'] }}</td>
+                                    <td>{{ lec['Lecture'] }}</td>
+                                    <td>{{ lec['Date'] }}</td>
+                                    <td>{{ lec['Time'] }}</td>
+                                    <td>
+                                        {% for student in lec['Students'] %}
+                                            <ul type="disc">
+                                                <li>
+                                                    id: {{student['_id']}}
+                                                    <div class="tooltip">
+                                                        [Hover for more info]
+                                                        <span class="tooltiptext">                                                       
+                                                            name: {{student['name']}}<br/>
+                                                            email: {{student['email']}}
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+                {% if currentUser['role'] == 'student' %}
+                    <h1>Total Lectures Attended: {{lectures_data|length}} </h1>
+                    <table>
+                        <thead>
+                            <tr>
+                                {% for col in col_names %}
+                                    <th>
+                                        {{ col }}
+                                    </th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                            <tbody>
+                            {% for lec in lectures_data %}
+                                <tr>
+                                    <td>{{ lec['id'] }}</td>
+                                    <td>{{ lec['Lecture'] }}</td>
+                                    <td>{{ lec['Date'] }}</td>
+                                    <td>{{ lec['Time'] }}</td>
+                                    <td>                                       
+                                        id: {{lec['Teacher']['_id']}}
+                                        <div class="tooltip">
+                                            [Hover for more info]
+                                            <span class="tooltiptext">                                                       
+                                                name: {{lec['Teacher']['name']}}<br/>
+                                                email: {{lec['Teacher']['email']}}
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+    </body>
+</html>
+

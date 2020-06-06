@@ -1,0 +1,2 @@
+- Student Name
+	>images of student [eg 0.jpg, ...]
