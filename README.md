@@ -1,6 +1,6 @@
 # Deep Learning Based Attendance System (DBAS)
 
-An attendance system implemented using PCN (Face Detection), FaceNet (Face Recognition) and Flask 
+An attendance system implemented using PCN[Progressive calibration Networks] (Face Detection), FaceNet (Face Recognition) and Flask 
 
 ### Libraries used:
 * pytorch  
@@ -10,6 +10,7 @@ An attendance system implemented using PCN (Face Detection), FaceNet (Face Recog
 * flask  
 * flask_wtf  
 * flask_pymongo  
+* jinja [flask's templating engine]  
 
 ### Database Used:
 MongoDB Local database
@@ -23,7 +24,7 @@ Then pass `http://<ip-from-IP-WebCam>/shot.jpg` to faceRec_flask file.
 
 In the project root, run `flask run` to start the flask server
 
-### Codes used:
+### References:
 * PCN: 
 https://github.com/siriusdemon/pytorch-PCN
 
